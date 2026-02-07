@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Submit your request for help - Food, Education, Medical, or Rent support. Verified charity platform.">
+  <meta name="keywords" content="submit request, need help, charity, food aid, medical help">
+  <title>Submit Request | Helping Hand to Poor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo" aria-label="Helping Hand to Poor - Home">
+        <i class="fas fa-hands-helping" aria-hidden="true"></i>
+        <span>Helping Hand</span>
+      </a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="browse-cases.html">Browse Cases</a></li>
+        <li><a href="submit-request.html" class="active">Submit Request</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="btn btn--outline btn--sm">Login</a></li>
+        <li><a href="register.html" class="btn btn--primary btn--sm">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="page-header__title">Submit Your Request</h1>
+      <p class="page-header__subtitle">We're here to help. Fill out the form below and our team will verify your case.</p>
+    </div>
+  </header>
+
+  <main class="section" role="main">
+    <div class="container">
+      <div style="max-width: 680px; margin: 0 auto;">
+        <!-- Submission Guidelines -->
+        <div class="form-guidelines" role="region" aria-label="Submission guidelines">
+          <strong><i class="fas fa-info-circle"></i> Submission Guidelines</strong>
+          <ul>
+            <li>All fields marked with <span class="required">*</span> are required.</li>
+            <li>Provide accurate information. False claims may result in rejection.</li>
+            <li>Upload clear copies of proof documents (ID, medical reports, etc.).</li>
+            <li>Our team will verify your case within 3-5 business days.</li>
+            <li>You will be notified via email/phone once verified.</li>
+          </ul>
+        </div>
+
+        <!-- Request Form -->
+        <form id="submitRequestForm" novalidate>
+          <div class="form-group">
+            <label class="form-group__label" for="fullName">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+            <span class="form-error" id="fullNameError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="age">Age <span class="required">*</span></label>
+            <input type="number" id="age" name="age" class="form-control" min="1" max="120" placeholder="Enter your age" required>
+            <span class="form-error" id="ageError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="city">City <span class="required">*</span></label>
+            <input type="text" id="city" name="city" class="form-control" placeholder="Enter your city" required>
+            <span class="form-error" id="cityError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="category">Category <span class="required">*</span></label>
+            <select id="category" name="category" class="form-control" required>
+              <option value="">Select category</option>
+              <option value="food">Food</option>
+              <option value="education">Education</option>
+              <option value="medical">Medical</option>
+              <option value="rent">Rent</option>
+            </select>
+            <span class="form-error" id="categoryError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="problemDesc">Problem Description <span class="required">*</span></label>
+            <textarea id="problemDesc" name="problemDesc" class="form-control" placeholder="Describe your situation and why you need help..." required></textarea>
+            <span class="form-error" id="problemDescError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="amountNeeded">Amount Needed (₹) <span class="required">*</span></label>
+            <input type="number" id="amountNeeded" name="amountNeeded" class="form-control" min="1" placeholder="Enter amount in rupees" required>
+            <span class="form-error" id="amountNeededError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label">Upload Proof Documents <span class="required">*</span></label>
+            <div class="file-upload" id="fileUpload" role="button" tabindex="0">
+              <input type="file" id="proofDocuments" name="proofDocuments" class="file-upload__input" accept=".pdf,.jpg,.jpeg,.png" multiple>
+              <p><i class="fas fa-cloud-upload-alt"></i> Click or drag to upload (PDF, JPG, PNG)</p>
+              <div class="file-upload__preview" id="filePreview"></div>
+            </div>
+            <span class="form-error" id="proofDocumentsError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="contactInfo">Contact Information <span class="required">*</span></label>
+            <input type="text" id="contactInfo" name="contactInfo" class="form-control" placeholder="Phone number or email" required>
+            <span class="form-error" id="contactInfoError"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Submit Request
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__section">
+          <h4>Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="browse-cases.html">Browse Cases</a></li>
+            <li><a href="submit-request.html">Submit Request</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Account</h4>
+          <ul class="footer__links">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Contact Us</h4>
+          <p>Email: support@helpinghand.org</p>
+          <p>Phone: +92 300 1234567</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Helping Hand to Poor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

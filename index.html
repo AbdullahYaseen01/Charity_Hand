@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Helping Hand to Poor - Connect with verified charity cases. Donate to help those in need with food, education, medical, and rent support.">
+  <meta name="keywords" content="charity, donation, help poor, verified cases, food aid, education support, medical help">
+  <title>Helping Hand to Poor | Charity & Donation Platform</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- AOS - Animate On Scroll (Framer Motion-style) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-home">
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="navbar__logo" aria-label="Helping Hand to Poor - Home">
+        <i class="fas fa-hands-helping" aria-hidden="true"></i>
+        <span>Helping Hand</span>
+      </a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/browse-cases.html">Browse Cases</a></li>
+        <li><a href="pages/submit-request.html">Submit Request</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+        <li><a href="pages/login.html" class="btn btn--outline btn--sm">Login</a></li>
+        <li><a href="pages/register.html" class="btn btn--primary btn--sm">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero hero--with-bg" role="banner">
+    <div class="hero__bg-image" aria-hidden="true"></div>
+    <div class="container hero__content">
+      <h1 class="hero__title" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Your Help Can Change a Life</h1>
+      <p class="hero__tagline" data-aos="fade-up" data-aos-duration="800" data-aos-delay="250">Connect directly with verified individuals in need. Every donation reaches those who need it most—transparent, trusted, and transformative.</p>
+      <div class="hero__buttons" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+        <a href="pages/submit-request.html" class="btn btn--secondary">
+          <i class="fas fa-plus-circle"></i> Submit Request
+        </a>
+        <a href="pages/browse-cases.html" class="btn btn--outline">
+          <i class="fas fa-search"></i> Browse Cases
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- How It Works Section -->
+  <section class="section" id="how-it-works" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section__header" data-aos="fade-up" data-aos-duration="600">
+        <h2 class="section__title" id="how-title">How It Works</h2>
+        <p class="section__subtitle">Our simple three-step process ensures your help reaches verified individuals in need.</p>
+      </div>
+      <div class="steps">
+        <article class="step-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="0">
+          <div class="step-card__number" aria-hidden="true">1</div>
+          <h3 class="step-card__title">Submit Request</h3>
+          <p class="step-card__desc">Individuals in need submit their request with proof documents. We collect and verify all necessary information.</p>
+        </article>
+        <article class="step-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+          <div class="step-card__number" aria-hidden="true">2</div>
+          <h3 class="step-card__title">Verification</h3>
+          <p class="step-card__desc">Our team rigorously verifies each case through documents and follow-up. Only verified cases are published.</p>
+        </article>
+        <article class="step-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+          <div class="step-card__number" aria-hidden="true">3</div>
+          <h3 class="step-card__title">Get Help</h3>
+          <p class="step-card__desc">Donors can browse verified cases and contribute directly. Your help reaches those who need it most.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Cases Section -->
+  <section class="section section--alt" id="featured-cases" aria-labelledby="featured-title">
+    <div class="container">
+      <div class="section__header" data-aos="fade-up" data-aos-duration="600">
+        <h2 class="section__title" id="featured-title">Featured Verified Cases</h2>
+        <p class="section__subtitle">These verified individuals urgently need your support. Every contribution makes a difference.</p>
+      </div>
+      <div class="cards-grid">
+        <!-- Case Card 1 -->
+        <article class="case-card case-card--premium" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0">
+          <div class="case-card__image-wrap">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=250&fit=crop" alt="Ahmad Khan - Medical support needed" class="case-card__image" width="400" height="250" loading="lazy">
+          </div>
+          <div class="case-card__content">
+            <span class="case-card__category case-card__category--medical">Medical</span>
+            <h3 class="case-card__name">Ahmad Khan</h3>
+            <p class="case-card__meta">45 years • Karachi</p>
+            <p class="case-card__desc">Urgent surgery required for heart condition. Family has exhausted savings. Any help is appreciated.</p>
+            <p class="case-card__amount">₹85,000 needed</p>
+            <button class="btn btn--primary btn--block donate-btn" data-case="Ahmad Khan" data-amount="85000">Donate Now</button>
+          </div>
+        </article>
+        <!-- Case Card 2 -->
+        <article class="case-card case-card--premium" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+          <div class="case-card__image-wrap">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop" alt="Fatima Begum - Education support needed" class="case-card__image" width="400" height="250" loading="lazy">
+          </div>
+          <div class="case-card__content">
+            <span class="case-card__category case-card__category--education">Education</span>
+            <h3 class="case-card__name">Fatima Begum</h3>
+            <p class="case-card__meta">12 years • Lahore</p>
+            <p class="case-card__desc">Bright student needs school fees and books. Father passed away, mother works as a daily laborer.</p>
+            <p class="case-card__amount">₹25,000 needed</p>
+            <button class="btn btn--primary btn--block donate-btn" data-case="Fatima Begum" data-amount="25000">Donate Now</button>
+          </div>
+        </article>
+        <!-- Case Card 3 -->
+        <article class="case-card case-card--premium" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
+          <div class="case-card__image-wrap">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop" alt="Rashid Ali - Food support needed" class="case-card__image" width="400" height="250" loading="lazy">
+          </div>
+          <div class="case-card__content">
+            <span class="case-card__category case-card__category--food">Food</span>
+            <h3 class="case-card__name">Rashid Ali</h3>
+            <p class="case-card__meta">38 years • Islamabad</p>
+            <p class="case-card__desc">Lost job during pandemic. Family of 5 struggling for basic meals. Needs support for 2 months.</p>
+            <p class="case-card__amount">₹15,000 needed</p>
+            <button class="btn btn--primary btn--block donate-btn" data-case="Rashid Ali" data-amount="15000">Donate Now</button>
+          </div>
+        </article>
+      </div>
+      <div class="text-center mt-3" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
+        <a href="pages/browse-cases.html" class="btn btn--outline">View All Cases</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="section" aria-labelledby="stats-title">
+    <div class="container">
+      <div class="section__header" data-aos="fade-up" data-aos-duration="600">
+        <h2 class="section__title" id="stats-title">Our Impact</h2>
+        <p class="section__subtitle">Together we're making a real difference in people's lives.</p>
+      </div>
+      <div class="stats">
+        <div class="stat-item" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="0">
+          <p class="stat-item__number">1,247</p>
+          <p class="stat-item__label">Cases Verified</p>
+        </div>
+        <div class="stat-item" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="150">
+          <p class="stat-item__number">3,892</p>
+          <p class="stat-item__label">Donors Helped</p>
+        </div>
+        <div class="stat-item" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="300">
+          <p class="stat-item__number">₹2.4M</p>
+          <p class="stat-item__label">Amount Donated</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section section--alt" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="section__header" data-aos="fade-up" data-aos-duration="600">
+        <h2 class="section__title" id="cta-title">Ready to Make a Difference?</h2>
+        <p class="section__subtitle">Whether you need help or want to give—we're here to connect you.</p>
+      </div>
+      <div class="hero__buttons" data-aos="fade-up" data-aos-duration="600" data-aos-delay="150">
+        <a href="pages/submit-request.html" class="btn btn--secondary">
+          <i class="fas fa-plus-circle"></i> Submit Request
+        </a>
+        <a href="pages/browse-cases.html" class="btn btn--primary">
+          <i class="fas fa-search"></i> Browse Cases
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donate Modal -->
+  <div class="modal-overlay" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modalTitle">Donate Now</h3>
+        <button class="modal__close" id="modalClose" aria-label="Close modal">&times;</button>
+      </div>
+      <p class="mb-2">You're donating to: <strong id="modalCaseName"></strong></p>
+      <form id="donateForm">
+        <div class="form-group">
+          <label class="form-group__label" for="donateAmount">Amount (₹)</label>
+          <input type="number" id="donateAmount" class="form-control" min="100" step="100" placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="donateMessage">Message (optional)</label>
+          <textarea id="donateMessage" class="form-control" rows="3" placeholder="Add a message of support..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Proceed to Donate</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__section">
+          <h4>Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/about.html">About</a></li>
+            <li><a href="pages/browse-cases.html">Browse Cases</a></li>
+            <li><a href="pages/submit-request.html">Submit Request</a></li>
+            <li><a href="pages/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Account</h4>
+          <ul class="footer__links">
+            <li><a href="pages/login.html">Login</a></li>
+            <li><a href="pages/register.html">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Contact Us</h4>
+          <p>Email: support@helpinghand.org</p>
+          <p>Phone: +92 300 1234567</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Helping Hand to Poor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

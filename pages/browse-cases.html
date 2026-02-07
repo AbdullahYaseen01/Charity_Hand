@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse verified charity cases - Food, Education, Medical, Rent support. Find someone to help today.">
+  <meta name="keywords" content="browse cases, charity cases, verified, donate, help">
+  <title>Browse Cases | Helping Hand to Poor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo" aria-label="Helping Hand to Poor - Home">
+        <i class="fas fa-hands-helping" aria-hidden="true"></i>
+        <span>Helping Hand</span>
+      </a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="browse-cases.html" class="active">Browse Cases</a></li>
+        <li><a href="submit-request.html">Submit Request</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="btn btn--outline btn--sm">Login</a></li>
+        <li><a href="register.html" class="btn btn--primary btn--sm">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="page-header__title">Browse Verified Cases</h1>
+      <p class="page-header__subtitle">Find someone you can help today. All cases are verified.</p>
+    </div>
+  </header>
+
+  <main class="section" role="main">
+    <div class="container">
+      <div class="browse-layout">
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar" role="complementary" aria-label="Filter cases">
+          <h3 class="filter-sidebar__title">Filter Cases</h3>
+          <form id="filterForm">
+            <div class="filter-group">
+              <label class="filter-group__label" for="filterCategory">Category</label>
+              <select id="filterCategory" name="category">
+                <option value="">All Categories</option>
+                <option value="food">Food</option>
+                <option value="education">Education</option>
+                <option value="medical">Medical</option>
+                <option value="rent">Rent</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-group__label" for="filterCity">City</label>
+              <select id="filterCity" name="city">
+                <option value="">All Cities</option>
+                <option value="karachi">Karachi</option>
+                <option value="lahore">Lahore</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="rawalpindi">Rawalpindi</option>
+                <option value="peshawar">Peshawar</option>
+                <option value="quetta">Quetta</option>
+                <option value="multan">Multan</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">Apply Filters</button>
+          </form>
+        </aside>
+
+        <!-- Cases Grid -->
+        <div class="cases-container">
+          <div class="cards-grid" id="casesGrid">
+            <!-- Case Card 1 -->
+            <article class="case-card">
+              <div class="case-card__image-wrap">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=250&fit=crop" alt="Ahmad Khan" class="case-card__image" width="400" height="250" loading="lazy">
+              </div>
+              <div class="case-card__content">
+                <span class="case-card__category">Medical</span>
+                <h3 class="case-card__name">Ahmad Khan</h3>
+                <p class="case-card__meta">45 years • Karachi</p>
+                <p class="case-card__desc">Urgent surgery required for heart condition. Family has exhausted savings.</p>
+                <p class="case-card__amount">₹85,000 needed</p>
+                <button class="btn btn--primary btn--block donate-btn" data-case="Ahmad Khan" data-amount="85000">Donate</button>
+              </div>
+            </article>
+            <!-- Case Card 2 -->
+            <article class="case-card">
+              <div class="case-card__image-wrap">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop" alt="Fatima Begum" class="case-card__image" width="400" height="250" loading="lazy">
+              </div>
+              <div class="case-card__content">
+                <span class="case-card__category">Education</span>
+                <h3 class="case-card__name">Fatima Begum</h3>
+                <p class="case-card__meta">12 years • Lahore</p>
+                <p class="case-card__desc">Bright student needs school fees and books. Father passed away.</p>
+                <p class="case-card__amount">₹25,000 needed</p>
+                <button class="btn btn--primary btn--block donate-btn" data-case="Fatima Begum" data-amount="25000">Donate</button>
+              </div>
+            </article>
+            <!-- Case Card 3 -->
+            <article class="case-card">
+              <div class="case-card__image-wrap">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop" alt="Rashid Ali" class="case-card__image" width="400" height="250" loading="lazy">
+              </div>
+              <div class="case-card__content">
+                <span class="case-card__category">Food</span>
+                <h3 class="case-card__name">Rashid Ali</h3>
+                <p class="case-card__meta">38 years • Islamabad</p>
+                <p class="case-card__desc">Lost job during pandemic. Family of 5 struggling for basic meals.</p>
+                <p class="case-card__amount">₹15,000 needed</p>
+                <button class="btn btn--primary btn--block donate-btn" data-case="Rashid Ali" data-amount="15000">Donate</button>
+              </div>
+            </article>
+            <!-- Case Card 4 -->
+            <article class="case-card">
+              <div class="case-card__image-wrap">
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop" alt="Mehwish Bibi" class="case-card__image" width="400" height="250" loading="lazy">
+              </div>
+              <div class="case-card__content">
+                <span class="case-card__category">Rent</span>
+                <h3 class="case-card__name">Mehwish Bibi</h3>
+                <p class="case-card__meta">35 years • Rawalpindi</p>
+                <p class="case-card__desc">Widow with 3 children. Facing eviction. Needs 2 months rent support.</p>
+                <p class="case-card__amount">₹30,000 needed</p>
+                <button class="btn btn--primary btn--block donate-btn" data-case="Mehwish Bibi" data-amount="30000">Donate</button>
+              </div>
+            </article>
+            <!-- Case Card 5 -->
+            <article class="case-card">
+              <div class="case-card__image-wrap">
+                <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=250&fit=crop" alt="Zain Ahmed" class="case-card__image" width="400" height="250" loading="lazy">
+              </div>
+              <div class="case-card__content">
+                <span class="case-card__category">Medical</span>
+                <h3 class="case-card__name">Zain Ahmed</h3>
+                <p class="case-card__meta">8 years • Multan</p>
+                <p class="case-card__desc">Child needs cancer treatment. Family cannot afford chemotherapy.</p>
+                <p class="case-card__amount">₹2,50,000 needed</p>
+                <button class="btn btn--primary btn--block donate-btn" data-case="Zain Ahmed" data-amount="250000">Donate</button>
+              </div>
+            </article>
+            <!-- Case Card 6 -->
+            <article class="case-card">
+              <div class="case-card__image-wrap">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=250&fit=crop" alt="Sana Khan" class="case-card__image" width="400" height="250" loading="lazy">
+              </div>
+              <div class="case-card__content">
+                <span class="case-card__category">Education</span>
+                <h3 class="case-card__name">Sana Khan</h3>
+                <p class="case-card__meta">18 years • Peshawar</p>
+                <p class="case-card__desc">Merit student needs university admission fees. First in family to attend college.</p>
+                <p class="case-card__amount">₹45,000 needed</p>
+                <button class="btn btn--primary btn--block donate-btn" data-case="Sana Khan" data-amount="45000">Donate</button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Pagination -->
+          <nav class="pagination" aria-label="Case pagination">
+            <span class="active">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">Next</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Donate Modal -->
+  <div class="modal-overlay" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modalTitle">Donate Now</h3>
+        <button class="modal__close" id="modalClose" aria-label="Close modal">&times;</button>
+      </div>
+      <p class="mb-2">You're donating to: <strong id="modalCaseName"></strong></p>
+      <form id="donateForm">
+        <div class="form-group">
+          <label class="form-group__label" for="donateAmount">Amount (₹)</label>
+          <input type="number" id="donateAmount" class="form-control" min="100" step="100" placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="donateMessage">Message (optional)</label>
+          <textarea id="donateMessage" class="form-control" rows="3" placeholder="Add a message of support..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Proceed to Donate</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__section">
+          <h4>Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="browse-cases.html">Browse Cases</a></li>
+            <li><a href="submit-request.html">Submit Request</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Account</h4>
+          <ul class="footer__links">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Contact Us</h4>
+          <p>Email: support@helpinghand.org</p>
+          <p>Phone: +92 300 1234567</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Helping Hand to Poor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

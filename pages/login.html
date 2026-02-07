@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login to your Helping Hand to Poor account. Access your donations and requests.">
+  <meta name="keywords" content="login, charity, account">
+  <title>Login | Helping Hand to Poor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo" aria-label="Helping Hand to Poor - Home">
+        <i class="fas fa-hands-helping" aria-hidden="true"></i>
+        <span>Helping Hand</span>
+      </a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="browse-cases.html">Browse Cases</a></li>
+        <li><a href="submit-request.html">Submit Request</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="active btn btn--outline btn--sm">Login</a></li>
+        <li><a href="register.html" class="btn btn--primary btn--sm">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="page-header__title">Login</h1>
+      <p class="page-header__subtitle">Welcome back! Sign in to your account.</p>
+    </div>
+  </header>
+
+  <main class="section" role="main">
+    <div class="container">
+      <div class="auth-container">
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label class="form-group__label" for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required autocomplete="email">
+            <span class="form-error" id="emailError"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label" for="password">Password <span class="required">*</span></label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+            <span class="form-error" id="passwordError"></span>
+          </div>
+
+          <div class="form-group">
+            <a href="#" class="text-muted" style="font-size: 0.9rem;">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider">Or continue with</div>
+
+        <!-- Social Login (optional) -->
+        <div class="auth-social">
+          <button type="button" class="btn btn--outline" aria-label="Login with Google">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <button type="button" class="btn btn--outline" aria-label="Login with Facebook">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </button>
+        </div>
+
+        <p class="text-center mt-3">
+          Don't have an account? <a href="register.html">Register here</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__section">
+          <h4>Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="browse-cases.html">Browse Cases</a></li>
+            <li><a href="submit-request.html">Submit Request</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Account</h4>
+          <ul class="footer__links">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Contact Us</h4>
+          <p>Email: support@helpinghand.org</p>
+          <p>Phone: +92 300 1234567</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Helping Hand to Poor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

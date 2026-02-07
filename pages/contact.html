@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Helping Hand to Poor - Get in touch for support, inquiries, or partnerships.">
+  <meta name="keywords" content="contact, support, help, charity">
+  <title>Contact Us | Helping Hand to Poor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo" aria-label="Helping Hand to Poor - Home">
+        <i class="fas fa-hands-helping" aria-hidden="true"></i>
+        <span>Helping Hand</span>
+      </a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="browse-cases.html">Browse Cases</a></li>
+        <li><a href="submit-request.html">Submit Request</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="login.html" class="btn btn--outline btn--sm">Login</a></li>
+        <li><a href="register.html" class="btn btn--primary btn--sm">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="page-header__title">Contact Us</h1>
+      <p class="page-header__subtitle">We'd love to hear from you. Get in touch for support or inquiries.</p>
+    </div>
+  </header>
+
+  <main class="section" role="main">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <form id="contactForm" novalidate>
+            <div class="form-group">
+              <label class="form-group__label" for="contactName">Name <span class="required">*</span></label>
+              <input type="text" id="contactName" name="name" class="form-control" placeholder="Your full name" required>
+              <span class="form-error" id="contactNameError"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-group__label" for="contactEmail">Email <span class="required">*</span></label>
+              <input type="email" id="contactEmail" name="email" class="form-control" placeholder="your@email.com" required>
+              <span class="form-error" id="contactEmailError"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-group__label" for="contactSubject">Subject <span class="required">*</span></label>
+              <input type="text" id="contactSubject" name="subject" class="form-control" placeholder="What is this regarding?" required>
+              <span class="form-error" id="contactSubjectError"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-group__label" for="contactMessage">Message <span class="required">*</span></label>
+              <textarea id="contactMessage" name="message" class="form-control" rows="5" placeholder="Your message..." required></textarea>
+              <span class="form-error" id="contactMessageError"></span>
+            </div>
+            <button type="submit" class="btn btn--primary" id="contactSubmitBtn">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info & Map -->
+        <div class="contact-info-wrapper">
+          <div class="contact-info">
+            <h3 class="mb-2">Get in Touch</h3>
+            <div class="contact-info__item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>Address</strong><br>
+                123 Charity Street, Block 5<br>
+                Karachi, Pakistan
+              </div>
+            </div>
+            <div class="contact-info__item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <strong>Email</strong><br>
+                support@helpinghand.org<br>
+                info@helpinghand.org
+              </div>
+            </div>
+            <div class="contact-info__item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <strong>Phone</strong><br>
+                +92 300 1234567<br>
+                +92 21 1234567
+              </div>
+            </div>
+          </div>
+
+          <!-- Google Maps Placeholder -->
+          <div class="map-placeholder mt-3" aria-label="Map placeholder">
+            <div>
+              <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
+              <p>Google Maps Placeholder</p>
+              <p class="text-muted" style="font-size: 0.875rem;">Embed your map using iframe or API</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__section">
+          <h4>Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="browse-cases.html">Browse Cases</a></li>
+            <li><a href="submit-request.html">Submit Request</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Account</h4>
+          <ul class="footer__links">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Contact Us</h4>
+          <p>Email: support@helpinghand.org</p>
+          <p>Phone: +92 300 1234567</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Helping Hand to Poor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
