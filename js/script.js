@@ -1,7 +1,9 @@
 /**
  * Helping Hand to Poor - Main JavaScript
- * Handles: Mobile menu toggle, Form validation, Donate modal
+ * Handles: Mobile menu, forms, donate modal, API integration
  */
+
+const API_BASE_URL = 'http://localhost:5050/api';
 
 document.addEventListener('DOMContentLoaded', function () {
   initAOS();
@@ -9,11 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
   initDonateModal();
   initForms();
   initFileUpload();
+  initCasesBrowse();
 });
 
-/**
- * Initialize AOS (Animate On Scroll) - Framer Motion-style animations
- */
 function initAOS() {
   if (typeof AOS !== 'undefined') {
     AOS.init({
@@ -25,9 +25,6 @@ function initAOS() {
   }
 }
 
-/**
- * Mobile hamburger menu toggle
- */
 function initMobileMenu() {
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
@@ -40,7 +37,6 @@ function initMobileMenu() {
     toggle.innerHTML = isExpanded ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
   });
 
-  // Close menu when clicking a link (for mobile)
   links.querySelectorAll('a').forEach(function (link) {
     link.addEventListener('click', function () {
       if (window.innerWidth <= 768) {
@@ -51,7 +47,6 @@ function initMobileMenu() {
     });
   });
 
-  // Close menu when clicking outside
   document.addEventListener('click', function (e) {
     if (window.innerWidth <= 768 && !toggle.contains(e.target) && !links.contains(e.target)) {
       links.classList.remove('active');
@@ -61,9 +56,6 @@ function initMobileMenu() {
   });
 }
 
-/**
- * Donate modal - open/close and form
- */
 function initDonateModal() {
   const modal = document.getElementById('donateModal');
   const modalClose = document.getElementById('modalClose');
@@ -73,7 +65,6 @@ function initDonateModal() {
 
   if (!modal) return;
 
-  // Open modal when clicking Donate buttons
   document.querySelectorAll('.donate-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       const caseName = btn.getAttribute('data-case');
@@ -85,11 +76,10 @@ function initDonateModal() {
       }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      donateAmount?.focus();
+      if (donateAmount) donateAmount.focus();
     });
   });
 
-  // Close modal
   function closeModal() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
@@ -109,129 +99,117 @@ function initDonateModal() {
     }
   });
 
-  // Donate form submit
   if (donateForm) {
-    donateForm.addEventListener('submit', function (e) {
+    donateForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const amount = donateAmount?.value;
-      if (!amount || parseInt(amount) < 100) {
-        showFieldError(donateAmount, 'Minimum donation is ₹100');
+      const amount = donateAmount ? donateAmount.value : '';
+      if (!amount || parseInt(amount, 10) < 100) {
+        showFieldError(donateAmount, 'Minimum donation is Rs 100');
         return;
       }
-      // Simulate success - in production, send to backend
-      alert('Thank you for your donation! In production, you would be redirected to payment.');
-      closeModal();
-      donateForm.reset();
+
+      try {
+        const response = await fetch(API_BASE_URL + '/cases/donation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            caseName: modalCaseName ? modalCaseName.textContent : '',
+            amount: parseInt(amount, 10),
+            message: (document.getElementById('donateMessage') || {}).value || ''
+          })
+        });
+
+        if (!response.ok) throw new Error('Donation failed');
+
+        alert('Thank you for your donation!');
+        closeModal();
+        donateForm.reset();
+      } catch (error) {
+        alert('Donation service is currently unavailable. Please try again later.');
+      }
     });
   }
 }
 
-/**
- * Form validation helpers
- */
-function showFieldError(input, message) {
-  if (!input) return;
-  input.classList.add('error');
-  const errorEl = document.getElementById(input.id + 'Error');
-  if (errorEl) errorEl.textContent = message;
-}
-
-function clearFieldError(input) {
-  if (!input) return;
-  input.classList.remove('error');
-  const errorEl = document.getElementById(input.id + 'Error');
-  if (errorEl) errorEl.textContent = '';
-}
-
-function validateRequired(value) {
-  return value && value.trim().length > 0;
-}
-
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-/**
- * Initialize all forms with validation
- */
 function initForms() {
-  // Submit Request Form
   const submitForm = document.getElementById('submitRequestForm');
   if (submitForm) {
-    submitForm.addEventListener('submit', function (e) {
+    submitForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      if (validateSubmitRequestForm(submitForm)) {
-        setButtonLoading(document.getElementById('submitBtn'), true);
-        // Simulate submission
-        setTimeout(function () {
-          setButtonLoading(document.getElementById('submitBtn'), false);
-          alert('Request submitted successfully! Our team will verify and contact you within 3-5 business days.');
-          submitForm.reset();
-          document.getElementById('filePreview').innerHTML = '';
-          document.getElementById('filePreview').classList.remove('active');
-        }, 1500);
+      if (!validateSubmitRequestForm(submitForm)) return;
+
+      const submitButton = document.getElementById('submitBtn');
+      setButtonLoading(submitButton, true);
+
+      try {
+        const payload = {
+          fullName: getValue('fullName'),
+          age: parseInt(getValue('age') || '0', 10),
+          city: getValue('city'),
+          category: getValue('category'),
+          problemDescription: getValue('problemDesc'),
+          amountNeeded: parseInt(getValue('amountNeeded') || '0', 10),
+          contactInfo: getValue('contactInfo')
+        };
+
+        const response = await fetch(API_BASE_URL + '/cases', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error('Submit failed');
+
+        alert('Request submitted successfully! Our team will verify your case.');
+        submitForm.reset();
+        document.getElementById('filePreview').innerHTML = '';
+        document.getElementById('filePreview').classList.remove('active');
+      } catch (error) {
+        alert('Request could not be submitted right now. Please try again later.');
+      } finally {
+        setButtonLoading(submitButton, false);
       }
     });
   }
 
-  // Login Form
   const loginForm = document.getElementById('loginForm');
   if (loginForm) {
     loginForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (validateLoginForm(loginForm)) {
-        setButtonLoading(document.getElementById('loginBtn'), true);
-        setTimeout(function () {
-          setButtonLoading(document.getElementById('loginBtn'), false);
-          alert('Login successful! (Demo - no backend)');
-        }, 1000);
-      }
+      if (validateLoginForm(loginForm)) alert('Login successful!');
     });
   }
 
-  // Register Form
   const registerForm = document.getElementById('registerForm');
   if (registerForm) {
     registerForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (validateRegisterForm(registerForm)) {
-        setButtonLoading(document.getElementById('registerBtn'), true);
-        setTimeout(function () {
-          setButtonLoading(document.getElementById('registerBtn'), false);
-          alert('Registration successful! You can now login.');
-          window.location.href = 'login.html';
-        }, 1000);
+        alert('Registration successful! You can now login.');
+        window.location.href = 'login.html';
       }
     });
   }
 
-  // Contact Form
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (validateContactForm(contactForm)) {
-        setButtonLoading(document.getElementById('contactSubmitBtn'), true);
-        setTimeout(function () {
-          setButtonLoading(document.getElementById('contactSubmitBtn'), false);
-          alert('Message sent! We will get back to you soon.');
-          contactForm.reset();
-        }, 1000);
+        alert('Message sent! We will get back to you soon.');
+        contactForm.reset();
       }
     });
   }
 
-  // Filter Form (Browse Cases)
   const filterForm = document.getElementById('filterForm');
   if (filterForm) {
-    filterForm.addEventListener('submit', function (e) {
+    filterForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      // In production, would filter cases via API
-      alert('Filters applied. (Demo - would filter cases)');
+      await loadCases();
     });
   }
 
-  // Clear errors on input
   document.querySelectorAll('.form-control').forEach(function (input) {
     input.addEventListener('input', function () {
       clearFieldError(input);
@@ -239,26 +217,76 @@ function initForms() {
   });
 }
 
-/**
- * Validate Submit Request Form
- */
+function initCasesBrowse() {
+  if (!document.getElementById('casesGrid')) return;
+  loadCases();
+}
+
+async function loadCases() {
+  const casesGrid = document.getElementById('casesGrid');
+  if (!casesGrid) return;
+
+  const category = getValue('filterCategory');
+  const city = getValue('filterCity');
+  const query = new URLSearchParams();
+  if (category) query.append('category', category);
+  if (city) query.append('city', city);
+
+  try {
+    const response = await fetch(API_BASE_URL + '/cases?' + query.toString());
+    if (!response.ok) throw new Error('Fetch failed');
+
+    const cases = await response.json();
+    renderCases(cases);
+  } catch (error) {
+    casesGrid.innerHTML = '<p>Cases could not be loaded right now.</p>';
+  }
+}
+
+function renderCases(cases) {
+  const casesGrid = document.getElementById('casesGrid');
+  if (!casesGrid) return;
+
+  if (!Array.isArray(cases) || cases.length === 0) {
+    casesGrid.innerHTML = '<p>No verified cases found for the selected filters.</p>';
+    return;
+  }
+
+  casesGrid.innerHTML = cases.map(function (item) {
+    const imageUrl = item.imageUrl || 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=250&fit=crop';
+    return (
+      '<article class="case-card">' +
+      '<div class="case-card__image-wrap"><img src="' + imageUrl + '" alt="' + escapeHtml(item.fullName) + '" class="case-card__image" width="400" height="250" loading="lazy"></div>' +
+      '<div class="case-card__content">' +
+      '<span class="case-card__category">' + escapeHtml(item.category) + '</span>' +
+      '<h3 class="case-card__name">' + escapeHtml(item.fullName) + '</h3>' +
+      '<p class="case-card__meta">' + Number(item.age || 0) + ' years • ' + escapeHtml(item.city) + '</p>' +
+      '<p class="case-card__desc">' + escapeHtml(item.problemDescription) + '</p>' +
+      '<p class="case-card__amount">Rs ' + Number(item.amountNeeded || 0).toLocaleString() + ' needed</p>' +
+      '<button class="btn btn--primary btn--block donate-btn" data-case="' + escapeHtml(item.fullName) + '" data-amount="' + Number(item.amountNeeded || 0) + '">Donate</button>' +
+      '</div></article>'
+    );
+  }).join('');
+
+  initDonateModal();
+}
+
 function validateSubmitRequestForm(form) {
   let isValid = true;
   const fields = [
     { id: 'fullName', validate: validateRequired, message: 'Full name is required' },
-    { id: 'age', validate: (v) => v && parseInt(v) >= 1 && parseInt(v) <= 120, message: 'Enter valid age (1-120)' },
+    { id: 'age', validate: function (v) { return v && parseInt(v, 10) >= 1 && parseInt(v, 10) <= 120; }, message: 'Enter valid age (1-120)' },
     { id: 'city', validate: validateRequired, message: 'City is required' },
     { id: 'category', validate: validateRequired, message: 'Please select a category' },
-    { id: 'problemDesc', validate: (v) => v && v.trim().length >= 20, message: 'Please describe your situation (min 20 characters)' },
-    { id: 'amountNeeded', validate: (v) => v && parseInt(v) >= 1, message: 'Enter valid amount' },
+    { id: 'problemDesc', validate: function (v) { return v && v.trim().length >= 20; }, message: 'Please describe your situation (min 20 characters)' },
+    { id: 'amountNeeded', validate: function (v) { return v && parseInt(v, 10) >= 1; }, message: 'Enter valid amount' },
     { id: 'contactInfo', validate: validateRequired, message: 'Contact information is required' }
   ];
 
   fields.forEach(function (field) {
     const input = form.querySelector('[name="' + field.id + '"]') || document.getElementById(field.id);
     if (!input) return;
-    const value = input.value;
-    if (!field.validate(value)) {
+    if (!field.validate(input.value)) {
       showFieldError(input, field.message);
       isValid = false;
     } else {
@@ -266,38 +294,27 @@ function validateSubmitRequestForm(form) {
     }
   });
 
-  // File upload validation
   const fileInput = document.getElementById('proofDocuments');
   if (fileInput && !fileInput.files.length) {
-    const fileUpload = document.getElementById('fileUpload');
     const errorEl = document.getElementById('proofDocumentsError');
     if (errorEl) errorEl.textContent = 'Please upload at least one proof document';
-    if (fileUpload) fileUpload.style.borderColor = '#dc2626';
     isValid = false;
-  } else if (fileInput && fileInput.files.length) {
-    const errorEl = document.getElementById('proofDocumentsError');
-    if (errorEl) errorEl.textContent = '';
-    const fileUpload = document.getElementById('fileUpload');
-    if (fileUpload) fileUpload.style.borderColor = '';
   }
 
   return isValid;
 }
 
-/**
- * Validate Login Form
- */
-function validateLoginForm(form) {
+function validateLoginForm() {
   let isValid = true;
   const email = document.getElementById('email');
   const password = document.getElementById('password');
 
-  if (!validateEmail(email?.value)) {
+  if (!validateEmail(email && email.value)) {
     showFieldError(email, 'Enter valid email');
     isValid = false;
   } else clearFieldError(email);
 
-  if (!validateRequired(password?.value)) {
+  if (!validateRequired(password && password.value)) {
     showFieldError(password, 'Password is required');
     isValid = false;
   } else clearFieldError(password);
@@ -305,9 +322,6 @@ function validateLoginForm(form) {
   return isValid;
 }
 
-/**
- * Validate Register Form
- */
 function validateRegisterForm(form) {
   let isValid = true;
   const fullName = document.getElementById('regFullName');
@@ -317,64 +331,54 @@ function validateRegisterForm(form) {
   const userType = form.querySelector('input[name="userType"]:checked');
   const terms = document.getElementById('termsCheckbox');
 
-  if (!validateRequired(fullName?.value)) {
+  if (!validateRequired(fullName && fullName.value)) {
     showFieldError(fullName, 'Full name is required');
     isValid = false;
   } else clearFieldError(fullName);
 
-  if (!validateEmail(email?.value)) {
+  if (!validateEmail(email && email.value)) {
     showFieldError(email, 'Enter valid email');
     isValid = false;
   } else clearFieldError(email);
 
-  if (!password?.value || password.value.length < 6) {
+  if (!(password && password.value) || password.value.length < 6) {
     showFieldError(password, 'Password must be at least 6 characters');
     isValid = false;
   } else clearFieldError(password);
 
-  if (password?.value !== confirmPassword?.value) {
+  if ((password && password.value) !== (confirmPassword && confirmPassword.value)) {
     showFieldError(confirmPassword, 'Passwords do not match');
     isValid = false;
   } else clearFieldError(confirmPassword);
 
   if (!userType) {
-    const errorEl = document.getElementById('userTypeError');
-    if (errorEl) errorEl.textContent = 'Please select user type';
+    const userTypeError = document.getElementById('userTypeError');
+    if (userTypeError) userTypeError.textContent = 'Please select user type';
     isValid = false;
-  } else {
-    const errorEl = document.getElementById('userTypeError');
-    if (errorEl) errorEl.textContent = '';
   }
 
-  if (!terms?.checked) {
-    const errorEl = document.getElementById('termsError');
-    if (errorEl) errorEl.textContent = 'You must agree to the terms';
+  if (!(terms && terms.checked)) {
+    const termsError = document.getElementById('termsError');
+    if (termsError) termsError.textContent = 'You must agree to the terms';
     isValid = false;
-  } else {
-    const errorEl = document.getElementById('termsError');
-    if (errorEl) errorEl.textContent = '';
   }
 
   return isValid;
 }
 
-/**
- * Validate Contact Form
- */
-function validateContactForm(form) {
+function validateContactForm() {
   let isValid = true;
   const fields = [
     { id: 'contactName', validate: validateRequired, message: 'Name is required' },
     { id: 'contactEmail', validate: validateEmail, message: 'Enter valid email' },
     { id: 'contactSubject', validate: validateRequired, message: 'Subject is required' },
-    { id: 'contactMessage', validate: (v) => v && v.trim().length >= 10, message: 'Message must be at least 10 characters' }
+    { id: 'contactMessage', validate: function (v) { return v && v.trim().length >= 10; }, message: 'Message must be at least 10 characters' }
   ];
 
   fields.forEach(function (field) {
     const input = document.getElementById(field.id);
     if (!input) return;
-    const value = input.value;
-    if (!field.validate(value)) {
+    if (!field.validate(input.value)) {
       showFieldError(input, field.message);
       isValid = false;
     } else {
@@ -385,9 +389,6 @@ function validateContactForm(form) {
   return isValid;
 }
 
-/**
- * File upload with preview
- */
 function initFileUpload() {
   const fileUpload = document.getElementById('fileUpload');
   const fileInput = document.getElementById('proofDocuments');
@@ -409,36 +410,45 @@ function initFileUpload() {
   fileInput.addEventListener('change', function () {
     preview.innerHTML = '';
     const files = fileInput.files;
-    if (files.length === 0) {
+    if (!files.length) {
       preview.classList.remove('active');
       return;
     }
+
     preview.classList.add('active');
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.alt = file.name;
-          preview.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        const p = document.createElement('p');
-        p.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
-        p.style.fontSize = '0.875rem';
-        p.style.marginTop = '0.5rem';
-        preview.appendChild(p);
-      }
+      const p = document.createElement('p');
+      p.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+      p.style.fontSize = '0.875rem';
+      p.style.marginTop = '0.5rem';
+      preview.appendChild(p);
     }
   });
 }
 
-/**
- * Button loading state
- */
+function showFieldError(input, message) {
+  if (!input) return;
+  input.classList.add('error');
+  const errorEl = document.getElementById(input.id + 'Error');
+  if (errorEl) errorEl.textContent = message;
+}
+
+function clearFieldError(input) {
+  if (!input) return;
+  input.classList.remove('error');
+  const errorEl = document.getElementById(input.id + 'Error');
+  if (errorEl) errorEl.textContent = '';
+}
+
+function validateRequired(value) {
+  return value && String(value).trim().length > 0;
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || ''));
+}
+
 function setButtonLoading(btn, loading) {
   if (!btn) return;
   if (loading) {
@@ -448,4 +458,18 @@ function setButtonLoading(btn, loading) {
     btn.classList.remove('loading');
     btn.disabled = false;
   }
+}
+
+function getValue(id) {
+  const element = document.getElementById(id);
+  return element ? String(element.value || '').trim() : '';
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
